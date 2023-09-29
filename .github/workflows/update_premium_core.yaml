@@ -12,6 +12,8 @@ on:
     #     description: 'version of Clash Premium, such as 2022.05.18'
     #     required: true
     #     type: string
+permissions:
+  contents: write
 env:
   # download_version: ${{ github.event.inputs.version }}
   download_version: ''
