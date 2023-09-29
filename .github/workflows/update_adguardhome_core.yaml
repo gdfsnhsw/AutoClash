@@ -12,6 +12,9 @@ on:
     #     description: 'tag of Clash mosdns, such as Prerelease-Alpha, Prerelease-Beta, v1.11.1'
     #     required: true
     #     type: string
+permissions:
+  contents: write
+
 env:
   # download_tag: ${{ github.event.inputs.tag }}
   download_version: ''
