@@ -7,6 +7,8 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron: "40 2 * * *"
   workflow_dispatch:
+permissions:
+  contents: write
 env:
   download_version: ''
   download_url: https://github.com/MetaCubeX/subconverter/releases/download
