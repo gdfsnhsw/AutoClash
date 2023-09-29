@@ -193,7 +193,6 @@ modify_yaml(){
   #dns配置
   [ -z "$(cat $clashdir/user.yaml 2>/dev/null | grep '^dns:')" ] && { 
     [ "$clashcore" = 'clashmeta' ] && dns_default_meta=', tls://1.12.12.12:853, tls://223.5.5.5:853' && dns_fallback_filter_meta=', geoip-code: CN, geosite: [gfw]'
-    # [ "$clashcore" = 'clashmeta' ] && dns_default_meta=', tls://1.12.12.12:853, tls://223.5.5.5:853'
     dns_default="114.114.114.114, 223.5.5.5$dns_default_meta"
     dns_fallback_filter="geoip: true$dns_fallback_filter_meta"
     if [ -f $clashdir/fake_ip_filter ];then
