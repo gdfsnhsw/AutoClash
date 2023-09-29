@@ -1,0 +1,68 @@
+proxies:
+###############【锚点】###############
+provider: &PROVIDER { interval: 3600, health-check: { enable: true, url: 'https://www.gstatic.com/generate_204', interval: 600 } }
+CLASSICAL: &CLASSICAL { type: http, behavior: classical, interval: 86400 }
+DOMAIN: &DOMAIN { type: http, behavior: domain, interval: 86400 }
+select: &SELECT { type: select }
+fallback: &FALLBACK { type: fallback, url: 'https://www.gstatic.com/generate_204', interval: 300 }
+url-test: &URL-TEST { type: url-test, url: 'https://www.gstatic.com/generate_204', interval: 300 }
+load-balance: &LOAD-BALANCE { type: load-balance, url: 'https://www.gstatic.com/generate_204', interval: 300 }
+NODES: &NODES { proxies: [🚀 节点选择, 🔰 故障转移, 🌀 手动切换, ⛱️ 负载均衡, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇰🇷 韩国节点, 🏳️‍🌈 其他节点, 🔄 延迟最低, 🎯 全球直连] }
+
+proxy-providers:
+  AllProxy: &AllProxy { <<: *PROVIDER, type: http, path: ./Provider/Proxy/AllProxy.yaml, url: "http://127.0.0.1:25500/getprofile?name=profiles/formyairport.ini&token=password&list=true" }
+  MYProxy: &MYProxy { <<: *PROVIDER, type: file, path: ./MyProxy.yaml }
+
+proxy-groups:
+  - { name: '🚀 节点选择', <<: *SELECT, proxies: [🔰 故障转移, 🌀 手动切换, ⛱️ 负载均衡, 🇭🇰 香港节点, 🇸🇬 新加坡节点, 🇨🇳 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇰🇷 韩国节点, 🏳️‍🌈 其他节点, 🔄 延迟最低, 🎯 全球直连]}
+  - { name: '🌀 手动切换', <<: *SELECT, use: [AllProxy] }
+  - { name: '🔰 故障转移', <<: *FALLBACK, use: [AllProxy] }
+  - { name: '📲 Telegram', <<: [*SELECT, *NODES] }
+  - { name: '📹 Youtube', <<: [*SELECT, *NODES], disable-udp: true }
+  - { name: '🎥 Netflix', <<: [*SELECT, *NODES] }
+  - { name: '📈 SpeedTest', <<: [*SELECT, *NODES] }
+  - { name: '🌍 国外媒体', <<: [*SELECT, *NODES] }
+  - { name: '💰 PayPal', <<: [*SELECT, *NODES] }
+  - { name: '🍎 苹果服务', <<: [*SELECT, *NODES] }
+  - { name: 'Ⓜ️ OneDrive', <<: [*SELECT, *NODES] }
+  - { name: 'Ⓜ️ 微软服务', <<: [*SELECT, *NODES] }
+  - { name: '🎮 游戏服务', <<: [*SELECT, *NODES] }
+  - { name: '🐟 漏网之鱼', <<: [*SELECT, *NODES] }
+  - { name: '🏳️‍🌈 其他节点', <<: *SELECT, use: [AllProxy], filter: '^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|🇰🇷)).*' }
+  - { name: '🇭🇰 香港节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*(🇭🇰|港|虚通|(?i)HK|Hong))(?!.*(回国|校园|游戏|教育|(?i)GAME|IPV6)).*$' }
+  - { name: '🇸🇬 新加坡节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*((?i)🇸🇬|新加坡|狮|SG|Singapore))(?!.*((?i)回国|校园|游戏|教育|久虚|GAME|IPV6)).*$' }
+  - { name: '🇨🇳 台湾节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*((?i)🇹🇼|台|TW|Tai))(?!.*((?i)回国|校园|游戏|教育|久虚|GAME|IPV6|CloudBlades)).*$' }
+  - { name: '🇯🇵 日本节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*((?i)🇯🇵|日|川日|东京|大阪|泉日|埼玉|JP|Japan))(?!.*((?i)回国|校园|游戏|教育|久虚|GAME|IPV6)).*$' }
+  - { name: '🇺🇲 美国节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*((?i)🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States))(?!.*((?i)回国|校园|游戏|教育|久虚|GAME|IPV6|CloudBlades)).*$' }
+  - { name: '🇰🇷 韩国节点', <<: *URL-TEST, use: [AllProxy], filter: '^(?=.*((?i)🇰🇷|韩|韓|首尔|KR|Korea))(?!.*((?i)回国|校园|游戏|教育|久虚|GAME|IPV6)).*$' }
+  - { name: '🔄 延迟最低', <<: *URL-TEST, use: [AllProxy] }
+  - { name: '⛱️ 负载均衡', <<: *LOAD-BALANCE, use: [AllProxy], filter: "(?i)🇭🇰|港|hk|hongkong|hong kong" } # 筛选满足关键词或正则表达式的节点
+  - { name: '🎯 全球直连', <<: *SELECT, proxies: [DIRECT] }
+
+rule-providers:
+#  cn: { <<: *DOMAIN, path: ./Provider/RuleSet/cn_domain.yaml, url: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/cn_domain.yaml }
+
+rules:
+  # - NOT,((DST-PORT,22/53/80/123/143/194/443/465/587/853/993/995/5222/8080/8443)),REJECT # 拦截非常用端口
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(GEOSITE,geolocation-!cn),REJECT # quic
+  - GEOSITE,category-ads-all,REJECT
+  # - RULE-SET,🎯 全球直连
+  - GEOSITE,cn,🎯 全球直连
+  - GEOSITE,private,🎯 全球直连
+  - GEOSITE,steam@cn,🎯 全球直连
+  - GEOSITE,category-games@cn,🎯 全球直连
+  - GEOSITE,speedtest,📈 SpeedTest
+  - GEOSITE,youtube,📹 Youtube
+  - GEOSITE,telegram,📲 Telegram
+  - GEOSITE,netflix,🎥 Netflix
+  - GEOSITE,paypal,💰 PayPal
+  - GEOSITE,apple,🍎 苹果服务
+  - GEOSITE,onedrive,Ⓜ️ OneDrive
+  - GEOSITE,microsoft,Ⓜ️ 微软服务
+  - GEOSITE,geolocation-!cn,🚀 节点选择
+  - GEOSITE,CN,🎯 全球直连
+  #GEOIP规则
+  - GEOIP,private,DIRECT,no-resolve
+  - GEOIP,telegram,📲 Telegram
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼

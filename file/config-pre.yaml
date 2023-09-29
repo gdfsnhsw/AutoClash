@@ -1,0 +1,103 @@
+proxies:
+###############【锚点】###############
+provider: &PROVIDER { type: http, interval: 3600, health-check: { enable: true, url: 'http://www.gstatic.com/generate_204', interval: 600 } }
+rule: &RULE { type: http, behavior: classical, interval: 86400 }
+select: &SELECT { type: select }
+fallback: &FALLBACK { type: fallback, url: 'http://www.gstatic.com/generate_204', interval: 300 }
+url-test: &URL-TEST { type: url-test, url: 'http://www.gstatic.com/generate_204', interval: 300 }
+## 1 ## 请根据节点名称同时取消注释(1-4)## 1 ## 
+NODES: &NODES
+  proxies:
+    - 🚀 节点选择
+    - 🌀 手动切换
+    # - 🇭🇰 香港节点
+    # - 🇸🇬 新加坡节点
+    # - 🇨🇳 台湾节点
+    # - 🇯🇵 日本节点
+    # - 🇺🇲 美国节点
+    # - 🇰🇷 韩国节点
+    - 🔄 延迟最低
+    - 🎯 全球直连
+## 2 ## 请根据节点名称同时取消注释(1-4)## 2 ## 
+NODES2: &NODES2
+  proxies:
+    - 🔄 延迟最低
+    - 🌀 手动切换
+    # - 🇭🇰 香港节点
+    # - 🇸🇬 新加坡节点
+    # - 🇨🇳 台湾节点
+    # - 🇯🇵 日本节点
+    # - 🇺🇲 美国节点
+    # - 🇰🇷 韩国节点
+    - 🎯 全球直连
+proxy-providers:
+  AllProxy: &AllProxy { <<: *PROVIDER, path: ./Provider/Proxy/AllProxy.yaml, url: "http://127.0.0.1:25500/getprofile?name=profiles/formyairport.ini&token=password&list=true" }
+## 3 ## 请根据节点名称同时取消注释(1-4)## 3 ## 
+  # HK: { <<: *AllProxy, filter: "🇭🇰|港|虚通|(?i)HK|Hong" }
+  # SG: { <<: *AllProxy, filter: "(?i)🇸🇬|新加坡|狮|SG|Singapore" }
+  # TW: { <<: *AllProxy, filter: "(?i)TW|台|Tai" }
+  # JP: { <<: *AllProxy, filter: "(?i)🇯🇵|日|川日|东京|大阪|泉日|埼玉|JP|Japan" }
+  # US: { <<: *AllProxy, filter: "(?i)🇺🇸|美|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|United States" }
+  # KR: { <<: *AllProxy, filter: "(?i)🇰🇷|韩|韓|首尔|KR|Korea" }
+
+proxy-groups:
+  - { name: '🚀 节点选择', <<: [*SELECT, *NODES2] }
+  - { name: '🌀 手动切换', <<: *SELECT, use: [AllProxy] }
+  - { name: '📲 Telegram', <<: [*SELECT, *NODES] }
+  - { name: '📹 Youtube', <<: [*SELECT, *NODES] }
+  - { name: '🎥 Netflix', <<: [*SELECT, *NODES] }
+  - { name: '📈 SpeedTest', <<: [*SELECT, *NODES] }
+  - { name: '🌍 国外媒体', <<: [*SELECT, *NODES] }
+  - { name: '💰 PayPal', <<: [*SELECT, *NODES] }
+  - { name: '🍎 苹果服务', <<: [*SELECT, *NODES] }
+  - { name: 'Ⓜ️ OneDrive', <<: [*SELECT, *NODES] }
+  - { name: 'Ⓜ️ 微软服务', <<: [*SELECT, *NODES] }
+  - { name: '🎮 游戏服务', <<: [*SELECT, *NODES] }
+  - { name: '🐟 漏网之鱼', <<: [*SELECT, *NODES] }
+## 4 ## 请根据节点名称同时取消注释(1-4)## 4 ## 
+  # - { name: '🇭🇰 香港节点', <<: *URL-TEST, use: [HK] }
+  # - { name: '🇸🇬 新加坡节点', <<: *URL-TEST, use: [SG] }
+  # - { name: '🇨🇳 台湾节点', <<: *URL-TEST, use: [TW] }
+  # - { name: '🇯🇵 日本节点', <<: *URL-TEST, use: [JP] }
+  # - { name: '🇺🇲 美国节点', <<: *URL-TEST, use: [US] }
+  # - { name: '🇰🇷 韩国节点', <<: *URL-TEST, use: [KR] }
+  - { name: '🔄 延迟最低', <<: *URL-TEST, use: [AllProxy] }
+  - { name: '🎯 全球直连', <<: *SELECT, proxies: [DIRECT] }
+
+rule-providers:
+  Lan: { <<: *RULE, path: ./Provider/RuleSet/Lan.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Lan/Lan.yaml } #本地局域网地址
+  PrivateTracker: { <<: *RULE, path: ./Provider/RuleSet/PrivateTracker.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PrivateTracker/PrivateTracker.yaml } # PT下载
+  CloudCN: { <<: *RULE, path: ./Provider/RuleSet/CloudCN.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Cloud/CloudCN/CloudCN.yaml } # 国内云计算
+  ChinaMax: { <<: *RULE, path: ./Provider/RuleSet/ChinaMax.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ChinaMax/ChinaMax_Classical.yaml } # 国内网站/IP合集
+  NTPService: { <<: *RULE, path: ./Provider/RuleSet/NTPService.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/NTPService/NTPService.yaml }
+  PayPal: { <<: *RULE, path: ./Provider/RuleSet/PayPal.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/PayPal/PayPal.yaml }
+  OneDrive: { <<: *RULE, path: ./Provider/RuleSet/OneDrive.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OneDrive/OneDrive.yaml }
+  Microsoft: { <<: *RULE, path: ./Provider/RuleSet/Microsoft.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml }
+  Apple: { <<: *RULE, path: ./Provider/RuleSet/Apple.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple.yaml }
+  Telegram: { <<: *RULE, path: ./Provider/RuleSet/Telegram.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml }
+  Game: { <<: *RULE, path: ./Provider/RuleSet/Game.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Game/Game.yaml }
+  PROXY: { <<: *RULE, path: ./Provider/RuleSet/PROXY.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Proxy/Proxy_Classical.yaml }
+  YouTube: { <<: *RULE, path: ./Provider/RuleSet/YouTube.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/YouTube/YouTube.yaml }
+  Netflix: { <<: *RULE, path: ./Provider/RuleSet/Netflix.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Netflix/Netflix.yaml }
+  GlobalMedia: { <<: *RULE, path: ./Provider/RuleSet/GlobalMedia.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml }
+  Speedtest: { <<: *RULE, path: ./Provider/RuleSet/Speedtest.yaml, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Speedtest/Speedtest.yaml }
+
+rules:
+  - RULE-SET,Lan,🎯 全球直连
+  - RULE-SET,NTPService,🎯 全球直连
+  - RULE-SET,PrivateTracker,🎯 全球直连
+  - RULE-SET,CloudCN,🎯 全球直连
+  - RULE-SET,Telegram,📲 Telegram
+  - RULE-SET,YouTube,📹 Youtube
+  - RULE-SET,Netflix,🎥 Netflix
+  - RULE-SET,Speedtest,📈 SpeedTest
+  - RULE-SET,GlobalMedia,🌍 国外媒体
+  - RULE-SET,PayPal,💰 PayPal
+  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,OneDrive,Ⓜ️ OneDrive
+  - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,Game,🎮 游戏服务
+  - RULE-SET,PROXY,🚀 节点选择
+  - RULE-SET,ChinaMax,🎯 全球直连
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🐟 漏网之鱼
