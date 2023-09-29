@@ -1,0 +1,59 @@
+name: Update Premium Core
+on:
+  push:
+    branches: 
+      - main
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "20 2 * * *"
+  workflow_dispatch:
+    # inputs:
+    #   version:
+    #     description: 'version of Clash Premium, such as 2022.05.18'
+    #     required: true
+    #     type: string
+env:
+  # download_version: ${{ github.event.inputs.version }}
+  download_version: ''
+  download_url: https://release.dreamacro.workers.dev
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Repository
+      uses: actions/checkout@main
+    - name: Init Dependencies
+      run: |
+        wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
+        wget https://github.com/upx/upx/releases/download/v3.93/upx-3.93-amd64_linux.tar.xz
+        tar xf upx-3.96-amd64_linux.tar.xz
+        tar xf upx-3.93-amd64_linux.tar.xz
+    - name: Download Core
+      run: |
+        download_version=$(curl -sL https://api.github.com/repos/Dreamacro/clash/releases/tags/premium | grep '"name": "Premium' | sed -E 's/.*"Premium ([^"]+)".*/\1/')
+        echo "download_version=${download_version}" >> ${GITHUB_ENV}
+        archs="amd64 armv7 arm64"
+        mkdir tmp
+        for arch in ${archs};do
+          wget "${download_url}/${download_version}/clash-linux-${arch}-${download_version}.gz" -O - | gunzip -c > ./tmp/clash-linux-${arch}
+          chmod +x ./tmp/clash-linux-${arch}
+          if [ "${arch}" != "armv5" ];then
+            if [[ ${arch} == mips* ]];then
+              ./upx-3.93-amd64_linux/upx ./tmp/clash-linux-${arch}
+            else
+              ./upx-3.96-amd64_linux/upx ./tmp/clash-linux-${arch}
+            fi
+          fi
+        done
+        rm -fr upx*
+    - name: Update
+      run: |
+        rm -fr ./bin/clash_pre/*
+        cp ./tmp/* ./bin/clash_pre/
+        rm -fr ./tmp
+        sed -i "s/clashpre_v=.*/clashpre_v=$(./bin/clash_pre/clash-linux-amd64 -v 2>/dev/null | sed 's/ linux.*//;s/.* //')/" bin/version
+    - name: Commit and push
+      run: |
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新Premium内核至${download_version}" || exit 0
+        git push

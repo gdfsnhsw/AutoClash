@@ -1,0 +1,66 @@
+name: Update AdGuardHome Core
+on:
+  push:
+    branches: 
+      - main
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 1 * * *"
+  workflow_dispatch:
+    # inputs:
+    #   tag:
+    #     description: 'tag of Clash mosdns, such as Prerelease-Alpha, Prerelease-Beta, v1.11.1'
+    #     required: true
+    #     type: string
+env:
+  # download_tag: ${{ github.event.inputs.tag }}
+  download_version: ''
+  download_url: https://github.com/AdguardTeam/AdGuardHome/releases/download
+jobs:
+  Update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Repository
+      uses: actions/checkout@main
+    - name: Init Dependencies
+      run: |
+        wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
+        wget https://github.com/upx/upx/releases/download/v3.93/upx-3.93-amd64_linux.tar.xz
+        tar xf upx-3.96-amd64_linux.tar.xz
+        tar xf upx-3.93-amd64_linux.tar.xz
+    - name: Download Core
+      run: |
+        download_version=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | grep '"tag_name": ' | sed -E 's/.*"([^"]+)".*/\1/' | head -n 1)
+        echo "download_version=${download_version}" >> ${GITHUB_ENV}
+        archs=(amd64 armv7 arm64)
+        new_name=(amd64 armv7 arm64)
+        mkdir tmp
+        mkdir opt
+        for((i=0;i<3;i++));do
+          wget -P ./opt "${download_url}/${download_version}/AdGuardHome_linux_${archs[i]}.tar.gz"
+          tar -zxvf ./opt/AdGuardHome_linux_${archs[i]}.tar.gz -C ./opt  >> /dev/null 2>&1
+          mv ./opt/AdGuardHome/AdGuardHome ./tmp/AdGuardHome-linux-${new_name[i]}
+          chmod +x ./tmp/AdGuardHome-linux-${new_name[i]}
+          if [ "${archs[i]}" != "armv5" ];then
+            if [[ ${archs[i]} = mips* ]];then
+              ./upx-3.93-amd64_linux/upx ./tmp/AdGuardHome-linux-${new_name[i]}
+            else
+              ./upx-3.96-amd64_linux/upx ./tmp/AdGuardHome-linux-${new_name[i]}
+            fi
+          fi
+        done
+        rm -fr upx*
+        rm -fr ./opt
+    - name: Update
+      run: |
+        rm -fr ./bin/adguardhome/*
+        cp ./tmp/* ./bin/adguardhome/
+        rm -fr ./tmp
+        cd \bin
+        sed -i '/adguardhome_v*/'d version
+        echo adguardhome_v=${download_version} >> version
+    - name: Commit and push
+      run: |
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新AdGuardHome内核至${download_version}" || exit 0
+        git push

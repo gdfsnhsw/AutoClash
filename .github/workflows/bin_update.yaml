@@ -9,7 +9,7 @@ on:
 #   branches: 
 #       - master
     schedule:
-        - cron: 0 18 * * 6
+        - cron: 0 18 * * *
 #   watch:
 #       types: [started]
     workflow_dispatch:
@@ -73,7 +73,7 @@ jobs:
         echo IP数据库及根证书文件更新完成！
     - name: Commit and push
       run: |
-        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "Bot"
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
         git add . && git commit -m "自动更新最新Dashboard、地址库、根证书" || exit 0
         git push
         
