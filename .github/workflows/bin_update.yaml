@@ -38,8 +38,8 @@ jobs:
         mkdir -p bin/dashboard
         mkdir -p bin/geodata
         cd bin/dashboard
-        echo 下载官方面板
-        curl -kfSL -o dashboard.zip  https://github.com/Dreamacro/clash-dashboard/archive/gh-pages.zip
+        # echo 下载官方面板
+        # curl -kfSL -o dashboard.zip  https://github.com/Dreamacro/clash-dashboard/archive/gh-pages.zip
         echo 下载Meta面板
         curl -kfSL -o dashboard_meta.zip  https://github.com/MetaCubeX/Razord-meta/archive/gh-pages.zip
         echo 下载yacd面板
