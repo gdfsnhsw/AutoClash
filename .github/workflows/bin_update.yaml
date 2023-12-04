@@ -45,16 +45,16 @@ jobs:
         echo "Yacd_meta_download_version=${Yacd_meta_download_version}" >> ${GITHUB_ENV}
         echo "metacubexd_download_version=${metacubexd_download_version}" >> ${GITHUB_ENV}
 
-    - name: Download and compress `clash-dashboard` dashboard
-      run: |
-        mkdir -p bin
-        mkdir -p bin/dashboard
-        cd bin/dashboard
-        echo 下载官方面板
-        curl -kfSL -o dashboard.zip  https://github.com/Dreamacro/clash-dashboard/archive/gh-pages.zip
-        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
-        git add . && git commit -m "更新 clash-dashboard 至 ${clash_dashboard_download_version}" || exit 0
-        git push -f
+    # - name: Download and compress `clash-dashboard` dashboard
+    #   run: |
+    #     mkdir -p bin
+    #     mkdir -p bin/dashboard
+    #     cd bin/dashboard
+    #     echo 下载官方面板
+    #     curl -kfSL -o dashboard.zip  https://github.com/Dreamacro/clash-dashboard/archive/gh-pages.zip
+    #     git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+    #     git add . && git commit -m "更新 clash-dashboard 至 ${clash_dashboard_download_version}" || exit 0
+    #     git push -f
 
     - name: Download and compress `Razord-meta` dashboard
       run: |
