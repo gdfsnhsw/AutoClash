@@ -1,0 +1,108 @@
+name: update-clashdashboard
+
+on: 
+#   release:
+#       types: [published]
+#   push:
+#       tags:
+#       - 'v*'
+#   branches: 
+#       - master
+    schedule:
+        - cron: 0 18 * * *
+#   watch:
+#       types: [started]
+    workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@master
+ 
+    - name: Apt Update
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install unzip curl git tar
+
+    - name: Get version
+      run: |
+        # clash_dashboard_download_version=$(curl -sSL https://api.github.com/repos/Dreamacro/clash-dashboard/tags | grep 'name' | head -n 1 | sed 's/.*v/v/g' | sed 's/",$//g')
+        Razord_meta_download_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/Razord-meta/tags | grep 'name' | head -n 1 | sed 's/.*v/v/g' | sed 's/",$//g')
+        yacd_download_version=$(curl -sSL https://api.github.com/repos/haishanh/yacd/releases/latest | grep 'tag_name' | sed 's/.*v/v/g' | sed 's/",$//g')
+        Yacd_meta_download_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/Yacd-meta/releases/latest | grep 'tag_name' | sed 's/.*v/v/g' | sed 's/",$//g')
+        metacubexd_download_version=$(curl -sSL https://api.github.com/repos/MetaCubeX/metacubexd/releases/latest | grep 'tag_name' | sed 's/.*v/v/g' | sed 's/",$//g')
+        # echo "clash_dashboard_download_version=${clash_dashboard_download_version}" >> ${GITHUB_ENV}
+        echo "Razord_meta_download_version=${Razord_meta_download_version}" >> ${GITHUB_ENV}
+        echo "yacd_download_version=${yacd_download_version}" >> ${GITHUB_ENV}
+        echo "Yacd_meta_download_version=${Yacd_meta_download_version}" >> ${GITHUB_ENV}
+        echo "metacubexd_download_version=${metacubexd_download_version}" >> ${GITHUB_ENV}
+
+    # - name: Download and compress `clash-dashboard` dashboard
+    #   run: |
+    #     mkdir -p bin
+    #     mkdir -p bin/dashboard
+    #     cd bin/dashboard
+    #     echo 下载官方面板
+    #     curl -kfSL -o dashboard.zip  https://github.com/Dreamacro/clash-dashboard/archive/gh-pages.zip
+    #     git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+    #     git add . && git commit -m "更新 clash-dashboard 至 ${clash_dashboard_download_version}" || exit 0
+    #     git push -f
+
+    - name: Download and compress `Razord-meta` dashboard
+      run: |
+        mkdir -p bin
+        mkdir -p bin/dashboard
+        cd bin/dashboard
+        echo 下载Meta面板
+        curl -kfSL -o dashboard_meta.zip  https://github.com/MetaCubeX/Razord-meta/archive/gh-pages.zip
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新 Razord-meta 至 ${Razord_meta_download_version}" || exit 0
+        git push -f
+
+    - name: Download and compress `yacd` dashboard
+      run: |
+        mkdir -p bin
+        mkdir -p bin/dashboard
+        cd bin/dashboard
+        echo 下载yacd面板
+        curl -kfSL -o yacd.zip  https://github.com/haishanh/yacd/archive/gh-pages.zip 
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新 yacd 至 ${yacd_download_version}" || exit 0
+        git push -f
+
+    - name: Download and compress `Yacd-meta` dashboard
+      run: |
+        mkdir -p bin
+        mkdir -p bin/dashboard
+        cd bin/dashboard
+        echo 下载meta魔改yacd面板
+        curl -kfSL -o yacd_meta.zip  https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新 Yacd-meta 至 ${Yacd_meta_download_version}" || exit 0
+        git push -f
+
+    - name: Download and compress `metacubexd` dashboard
+      run: |
+        mkdir -p bin
+        mkdir -p bin/dashboard
+        cd bin/dashboard
+        echo 下载metacubexd面板
+        curl -kfSL -o metacubexd.zip  https://github.com/metacubex/metacubexd/archive/gh-pages.zip
+        git config --global user.email "gdfsnhsw@gmail.com" && git config --global user.name "gdfsnhswBot"
+        git add . && git commit -m "更新 metacubexd 至 ${metacubexd_download_version}" || exit 0
+        git push -f
+
+    - name: Cleanup Workflow
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 1
+        keep_minimum_runs: 2
+        
