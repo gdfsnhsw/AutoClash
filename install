@@ -35,6 +35,6 @@ webget(){
 
 echo -----------------------------------------------
 echo -e "${green}开始从服务器获取安装文件！${plain}"
-webget /usr/local/bin/autoclash https://ghproxy.com/https://raw.githubusercontent.com/gdfsnhsw/AutoClash/master/scripts/autoclash
+webget /usr/local/bin/autoclash https://mirror.ghproxy.com/https://raw.githubusercontent.com/gdfsnhsw/AutoClash/master/scripts/autoclash
 chmod +x /usr/local/bin/autoclash >> /dev/null 2>&1
 autoclash install
