@@ -1751,7 +1751,7 @@ sniffer=已开启
 # raw_cdn:配置文件https://raw前添加代理	[已开启,未启用]
 raw_cdn=已开启
 # url_cdn:代理地址
-url_cdn='https://ghproxy.com/'
+url_cdn='https://mirror.ghproxy.com/'
 # clashcore:clash核心	[clashpre,clashmeta]
 clashcore=clashmeta
 # redir_mod:clash运行模式		[混合模式,Redir模式,Tun模式,TProxy模式]
@@ -1780,7 +1780,7 @@ config_url_cdn(){
   echo -----------------------------------------------
   echo -e "${yellowb}选择代理地址${end}"
   echo -----------------------------------------------
-  echo 1  https://ghproxy.com/
+  echo 1  https://mirror.ghproxy.com/
   echo 2  https://gh.shellclash.workers.dev/
   echo 3  https://pro.proenv.top/
   echo 4  http://gh.smiek.tk:8080/
@@ -1790,7 +1790,7 @@ config_url_cdn(){
   read -e -p "请输入对应数字 > " num
   if [ "$num" = 1 ];then
     # sed -i '/url_cdn = */'d $CFG_PATH
-    setconfig url_cdn \'https://ghproxy.com/\'
+    setconfig url_cdn \'https://mirror.ghproxy.com/\'
   elif [ "$num" = 2 ];then
     # sed -i '/url_cdn = */'d $CFG_PATH
     setconfig url_cdn \'https://gh.shellclash.workers.dev/\'
