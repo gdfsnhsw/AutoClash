@@ -7565,6 +7565,7 @@ analytics.swiggy.com
 analytics.tebilisim.com
 analytics.tedium.co
 analytics.teespring.com
+analytics.teknikveckan.se
 analytics.teko.vn
 analytics.teleclal.com
 analytics.telewebion.com
@@ -8047,6 +8048,7 @@ api.branch.io
 api.brs.intl.miui.com
 api.bytebrew.io
 api.cazamba.com
+api.country.is
 api.data-analytics.pokemon.com
 api.eu.amplitude.com
 api.exc.mob.com
@@ -8251,6 +8253,7 @@ applifier.com
 applifycontent.com
 applifysolutions.com
 applifysolutions.net
+applixir.com
 applog.ssgdfs.com
 applog.uc.cn
 applog.ucdns.uc.cn
@@ -8504,6 +8507,7 @@ arielpri2nce8ss09.com
 arihtrkoxuvlm.xyz
 arikhwglvc.xyz
 ariotgribble.com
+ariqye.xyz
 aristianewr.club
 arithmeticifrancorous.com
 arithpouted.com
@@ -12688,6 +12692,7 @@ btcnews.one
 btdirectnav.com
 btdnav.com
 btfjjwt.xyz
+btfzbak.xyz
 btg360.com.br
 btglss.net
 bthypgm.cn
@@ -14020,7 +14025,6 @@ cdn.altitudeplatform.com
 cdn.amplitude.com
 cdn.amzuu.com
 cdn.api-connect.io
-cdn.applixir.com
 cdn.appsmav.com
 cdn.assets.craveonline.com
 cdn.atlassbx.com
@@ -21394,6 +21398,7 @@ drumcash.com
 drummerconvention.com
 drummercorruptprime.com
 drummercrouchdelegate.com
+drummers.cn
 drumusherhat.com
 drunkardashamethicket.com
 drunkarddecentmeals.com
@@ -21401,6 +21406,7 @@ drust-gnf.com
 druttlelimbec.digital
 drvkypkfm.com
 drwornspinster.com
+dryden.cn
 drydrum.com
 dryerslegatos.com
 dryinfestinsight.com
@@ -21819,6 +21825,7 @@ dzbkl37t8az8q.cloudfront.net
 dzdgfp673c1p0.cloudfront.net
 dzdxnbc.xyz
 dzeoiizhixuyvg.com
+dzfzak.cn
 dzgwautxzdtn9.cloudfront.net
 dzhjmp.com
 dzienkudrow.com
@@ -24666,6 +24673,7 @@ fbcdn2.com
 fbd.de
 fbebmgbiou.com
 fbffdfproxwqi.com
+fbfrbt.xyz
 fbgdc.com
 fbgwruetfgbhp.com
 fbkzqnyyga.com
@@ -25052,6 +25060,7 @@ fhlceugidb.xyz
 fhrptbwtcmdibr.com
 fhsmtrnsfnt.com
 fhsvyfoadsbo.com
+fhtfnb.xyz
 fhuafkxvrzgmyn.com
 fhuldusmtyenuf.com
 fhuvfdycagmkhr.com
@@ -29791,6 +29800,7 @@ hemtatch.net
 hemworm.com
 hencemakesheavy.com
 hencoopfiestas.life
+hendehy.com
 henfskbbk.xyz
 hengepessary.com
 heniypgtlw.com
@@ -38316,6 +38326,7 @@ lukomol.com
 lukpush.com
 lulachu.com
 lulavsepoxy.guru
+lulgef.icu
 lulgpmdmbtedzl.com
 lullxkwwu.com
 lulxzl.xyz
@@ -46224,6 +46235,7 @@ pa-voyance.fr
 pa.5.p2l.info
 pa.pinpoll.com
 pa.tns-ua.com
+pa4ye.cyou
 pa5ka.com
 paalp.fr
 paasvalhall.top
@@ -48231,6 +48243,7 @@ plyfoni.ru
 plyinghygrin.com
 plywoodenchant.com
 plywoodfact.com
+pm.azerioncircle.com
 pm.boostintegrated.com
 pm.poqwua.cn
 pm0.net
@@ -50476,6 +50489,8 @@ qerbert78.xyz
 qerkbejqwzvyw.top
 qerusgreyt.com
 qetdpyialxousr.com
+qetskupch581.shop
+qetskupyka61.shop
 qeuckn.icu
 qevia.doubleclick.bond
 qewylqmaqezzj.top
@@ -64541,6 +64556,7 @@ uleptupt.xyz
 ulesxbo.com
 ulexiteoutspit.com
 ulfqakqfng.xyz
+uljoifw.cn
 ullis-airbrush-shop.de
 ulmmmvjfbbmk.com
 ulmoyc.com
@@ -64780,6 +64796,7 @@ unicornpride123.com
 unicume.com
 unid.go.com
 unidict.cn
+unifdlat.top
 unified-ter-na.hismarttv.com
 unifini.de
 uniformutilitiesexpressing.com
@@ -71911,6 +71928,7 @@ zaheki.uno
 zaicasoawoul.com
 zaiceyjjqq.com
 zaigaphy.net
+zailgrae.com
 zailoanoy.com
 zaipheetour.com
 zaistaug.net
