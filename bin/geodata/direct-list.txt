@@ -19591,6 +19591,7 @@ dcdkjx.com
 dcdnx.com
 dcement.com
 dcetax.com
+dcg.microsoft.com
 dcgqt.com
 dcgsi.com
 dcic-china.com
@@ -74292,10 +74293,7 @@ full:xn--9kr7l.com
 full:xn--flw351e.com
 full:xp.apple.com
 full:xz.pphimalayanrt.com
-regexp:.+\.awsdns-cn-[0-9][0-9]\.biz$
-regexp:.+\.awsdns-cn-[0-9][0-9]\.com$
-regexp:.+\.awsdns-cn-[0-9][0-9]\.net$
-regexp:.+\.awsdns-cn-[0-9][0-9]\.top$
+regexp:.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
 regexp:.+\.awsdns-cn-[0-9][a-e0-9]\.cn$
 regexp:.+\.azchcdn[a-s]\.com$
 regexp:.+\.azure-dns-([1-9]|10)\.cn$
