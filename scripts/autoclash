@@ -3150,7 +3150,7 @@ install_daed() {
     if [ "$update_git" != "原作者GitHub" ];then
       daed_download_url="${update_url}/bin/daed/installer-daed-linux-$(arch).deb"
     else    
-      daed_download_url=https://github.com/daeuniverse/daed/releases/download/v0.4.0rc1/installer-daed-linux-$(arch).deb
+      daed_download_url=https://github.com/daeuniverse/daed/releases/download/v0.4.1/installer-daed-linux-$(arch).deb
       if [ "${daed_download_url}" == "" ]; then
           echo -e "${red}No compatible daed for your platform.${end}"
           exit 1
