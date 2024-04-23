@@ -18,7 +18,7 @@ purpleb="\033[1;35m"
 lightblue="\033[0;36m"
 lightblueb="\033[1;36m"
 
-sh_ver="2.3.5"
+sh_ver="2.3.6"
 
 cpu=$(hostnamectl | grep Architecture: | awk '{print $2}')
 system=$(cat /etc/issue | awk '{print $1}')
@@ -3138,6 +3138,7 @@ set_daed() {
       if [ ! -d "/etc/daed" ]; then
         echo -e "${green}正在安装daed...${end}"
         install_daed
+        download_daed_db
       fi 
     systemctl restart daed >> /dev/null 2>&1
     systemctl enable daed >> /dev/null 2>&1
@@ -3162,7 +3163,6 @@ install_daed() {
     rm /tmp/installer-daed-linux-$(arch).deb
     systemctl start daed
     systemctl enable daed
-    download_daed_db
     systemctl restart daed
 }
 
@@ -3312,11 +3312,12 @@ EOF
     echo -e "\033[30;43m欢迎使用更新/卸载功能${end}"
     echo -----------------------------------------------
     echo -e "1. ${green}更新 ${end}AutoClash      ${yellow}${sh_ver}${end}      >  ${lightblue}${new_autoclash_version}${end}"
-    echo -e "2. ${green}更新 ${end}Clash.Premium: ${yellow}$(${clashpre_bin} -v | awk '{print $2}')${end} >  ${lightblue}${new_clashpre_version}${end}"
-    echo -e "3. ${green}更新 ${end}Clash.Meta:    ${yellow}$(${clashmeta_bin} -v | awk 'NR==1{print $3}')${end}    >  ${lightblue}${new_clashmeta_version}${end}"
-    echo -e "4. ${green}更新 ${end}Mosdns:        ${yellow}$(${mosdns_bin} version | awk '{print $1}'| cut -d'-' -f1)${end}     >  ${lightblue}${new_mosdns_version}${end}"
-    echo -e "5. ${green}更新 ${end}Subconverter   ${yellow}$(cat ${subconverter_version_file})${end}      >  ${lightblue}${new_subconverter_version}${end}" 
-    echo -e "6. ${green}更新 ${end}AdGuardHome    ${yellow}$(${adg_bin} --version | awk '{print $4}'| cut -d'-' -f1)${end}  >  ${lightblue}${new_adguardhome_version}${end}" 
+    echo -e "2. ${green}更新 ${end}Clash.Meta:    ${yellow}$(${clashmeta_bin} -v | awk 'NR==1{print $3}')${end}    >  ${lightblue}${new_clashmeta_version}${end}"
+    echo -e "3. ${green}更新 ${end}Mosdns:        ${yellow}$(${mosdns_bin} version | awk '{print $1}'| cut -d'-' -f1)${end}     >  ${lightblue}${new_mosdns_version}${end}"
+    echo -e "4. ${green}更新 ${end}Subconverter   ${yellow}$(cat ${subconverter_version_file})${end}      >  ${lightblue}${new_subconverter_version}${end}" 
+    echo -e "5. ${green}更新 ${end}AdGuardHome    ${yellow}$(${adg_bin} --version | awk '{print $4}'| cut -d'-' -f1)${end}  >  ${lightblue}${new_adguardhome_version}${end}" 
+        # echo -e "6. ${green}更新 ${end}Clash.Premium: ${yellow}$(${clashpre_bin} -v | awk '{print $2}')${end} >  ${lightblue}${new_clashpre_version}${end}"
+    echo -e "6. ${green}更新 ${end}Daed"
     echo -e "7. ${green}重置 ${end}AutoClash配置文件"
     echo -e "8. ${green}更新 ${end}Clash面板"
     echo -e "9. ${green}更新 ${end}数据库文件"
@@ -3331,27 +3332,28 @@ EOF
       1)  
           update_shell_y
           before_show_menu
-    ;;
+    ;; 
       2)  
-          update_clash_y
-          before_show_menu
-    ;;   
-      3)  
           update_clashmeta_y
           before_show_menu
     ;;                
-      4)  
+      3)  
           update_mosdns_y
           before_show_menu
     ;;
-      5)  
+      4)  
           update_subconverter_y
           before_show_menu
     ;;
-      6)  
+      5)  
           update_adguardhome_y
           before_show_menu
     ;;
+      6)  
+          # update_clash_y
+          install_daed
+          before_show_menu
+    ;;  
       7)  
           update_autoclash_config
           update_menu
@@ -3379,7 +3381,7 @@ EOF
 
 uninstall() {
     echo -----------------------------------------------
-      read -e -p "确认卸载AutoClash？(警告:该操作不可逆!)[1/0] > " res
+    read -e -p "确认卸载AutoClash？(警告:该操作不可逆!)[1/0] > " res
     if [ "$res" = '1' ]; then
     systemctl stop clash.service >> /dev/null 2>&1
     systemctl disable adguardhome.service >> /dev/null 2>&1
