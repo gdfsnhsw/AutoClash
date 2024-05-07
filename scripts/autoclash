@@ -3384,7 +3384,7 @@ uninstall() {
     read -e -p "确认卸载AutoClash？(警告:该操作不可逆!)[1/0] > " res
     if [ "$res" = '1' ]; then
     systemctl stop clash.service >> /dev/null 2>&1
-    systemctl disable adguardhome.service >> /dev/null 2>&1
+    systemctl disable clash.service >> /dev/null 2>&1
     rm -rf /etc/systemd/system/clash.service
     rm -rf ${clashpre_bin}
     rm -rf ${clashpre_bin}.old
@@ -3395,7 +3395,7 @@ uninstall() {
     rm -rf ${bindir}
 
     systemctl stop mosdns.service >> /dev/null 2>&1
-    systemctl disable adguardhome.service >> /dev/null 2>&1
+    systemctl disable mosdns.service >> /dev/null 2>&1
     rm -rf /etc/systemd/system/mosdns.service
     rm -rf ${mosdns_bin}
     rm -rf ${mosdns_bin}.old
@@ -3403,7 +3403,7 @@ uninstall() {
     rm -rf /tmp/mosdns.log
 
     systemctl stop subconverter.service >> /dev/null 2>&1
-    systemctl disable adguardhome.service >> /dev/null 2>&1
+    systemctl disable subconverter.service >> /dev/null 2>&1
     rm -rf /etc/systemd/system/subconverter.service
     rm -rf ${sub_bin}
     rm -rf ${sub_bin}.old
