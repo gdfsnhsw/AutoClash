@@ -1,48 +1,15 @@
 log:
-  level: info
-  file: "/tmp/mosdns.log"
-
-# API 入口设置
-api:
-  http: "0.0.0.0:9091"
-
-include: []
+  level: warn
+  file: "./mosdns.log"
 
 plugins:
-  # 国内域名
-  - tag: direct-list
-    type: domain_set
+  # 缓存插件
+  - tag: cache
+    type: cache
     args:
-      files:
-        - "./rules/direct-list.txt"
+      size: 20480
+      lazy_cache_ttl: 86400
 
-  # 国内ip
-  - tag: CN-ip-cidr
-    type: ip_set
-    args:
-      files:
-        - "./rules/CN-ip-cidr.txt"
-
-  # 国外域名
-  - tag: gfw
-    type: domain_set
-    args:
-      files:
-        - "./rules/gfw.txt"
-
-  # 白名单 加入的域名始终允许使用 “本地 DNS” 进行解析
-  - tag: white_list
-    type: domain_set
-    args:
-      files:
-        - "./rules/white_list.txt"
-
-  # 黑名单 加入的域名将屏蔽 DNS 解析
-  - tag: block_list
-    type: domain_set
-    args:
-      files:
-        - "./rules/block_list.txt"
 
   # 灰名单 加入的域名始终使用 “远程 DNS” 进行解析
   - tag: grey_list
@@ -51,173 +18,137 @@ plugins:
       files:
         - "./rules/grey_list.txt"
 
-  # DDNS域名 加入的域名始终使用 “本地 DNS” 进行解析，并且修改 TTL 为 5 秒，解析结果不进行缓存
-  - tag: ddns_list
+  # 白名单 加入的域名始终允许使用 “本地 DNS” 进行解析
+  - tag: white_list
     type: domain_set
     args:
       files:
-        - "./rules/ddns_list.txt"
+        - "./rules/white_list.txt"
 
-  # 自定义 Hosts 重写
-  - tag: hosts
-    type: hosts
+  # 国内域名
+  - tag: geosite_cn
+    type: domain_set
+    args:
+      exps:
+        - "lan"
+        - "local"
+        - "arpa"
+      files:
+        - "./rules/direct-list.txt"
+
+  # 国内 IP
+  - tag: geoip_cn
+    type: ip_set
     args:
       files:
-        - "./rules/hosts.txt"
-
-  # 重定向请求的域名
-  - tag: redirect
-    type: redirect
-    args:
-      files:
-        - "./rules/redirect.txt"
-
-  # PTR 黑名单 加入的域名将阻止 PTR 请求
-  - tag: local_ptr
+        - "./rules/CN-ip-cidr.txt"
+        
+  # 国外域名
+  - tag: geosite_no_cn
     type: domain_set
     args:
       files:
-        - "./rules/local_ptr.txt"
-
-  # 缓存
-  - tag: lazy_cache
-    type: cache
-    args:
-      size: 102400
-      lazy_cache_ttl: 259200
-      dump_file: "./cache.dump"
-      dump_interval: 600
-
-
-  # 转发至本地服务器
+        - "./rules/gfw.txt"
+        
+  # 国内DNS
   - tag: forward_local
     type: forward
     args:
-      concurrent: 3
       upstreams:
-        - addr: "https://1.12.12.12/dns-query"
-        - addr: "223.5.5.5"
-        - addr: "tls://120.53.53.53:853"
+        - addr: "quic://223.5.5.5"      
+        - addr: "tls://1.12.12.12"
+          enable_pipeline: true      
+        - addr: "tls://120.53.53.53"
           enable_pipeline: true
-
-  # 转发至远程服务器
+   
+  # 国外DNS
+  # 自己查找低延迟DNS
   - tag: forward_remote
     type: forward
     args:
-      concurrent: 1
       upstreams:
-        - addr: "127.0.0.1:5352"                    # clashDNS
-        #- addr: "https://doh.apad.pro/dns-query"   # easymosdns
-          #bootstrap: "119.29.29.29"                # easymosdns
+        # 101DNS
+        - addr: "tls://101.101.101.101"
+          enable_pipeline: true
+        # NextDNS HK节点
+        - addr: "https://45.11.104.186"
+          insecure_skip_verify: true
+        # OpenDNS SANDNOX
+        - addr: "tls://208.67.222.2"
+          enable_pipeline: true
+        # OpenDNS 
+        - addr: "tls://208.67.222.222"
+          enable_pipeline: true                    
 
-  # 修改ttl（默认0 不修改ttl）
-  - tag: modify_ttl
-    type: sequence
+  # 私人分流dns         
+  - tag: forward_private
+    type: forward
     args:
-      - exec: ttl 0-0
+      upstreams: 
+        - addr: "https://doh.apad.pro/dns-query"
+          bootstrap: "223.5.5.5" 
 
-  # 修改 ddns 域名 ttl（默认 5秒）
-  - tag: modify_ddns_ttl
-    type: sequence
-    args:
-      - exec: ttl 5-5
-
+          
   # 国内解析
   - tag: local_sequence
     type: sequence
     args:
       - exec: $forward_local
-
+        
   # 国外解析
   - tag: remote_sequence
     type: sequence
     args:
-      # 设置ECS
-      - exec: ecs 133.1.0.0/24 2001:268:fa03::1/48
+      - exec: prefer_ipv4
       - exec: $forward_remote
+      
+  # 分流解析    
+  - tag: private_sequence
+    type: sequence
+    args:
+      - exec: $forward_private
+      
+  # clash解析
+  - tag: clash_sequence
+    type: sequence
+    args:
+      - exec: forward 127.0.0.1:5352
+      - exec: ttl 0
 
-  # 有响应则修改 TTL 并终止返回
+  # 有响应终止返回
   - tag: has_resp_sequence
     type: sequence
     args:
-      - matches: qname $ddns_list
-        exec: $modify_ddns_ttl
-      - matches: "!qname $ddns_list"
-        exec: $modify_ttl
       - matches: has_resp
         exec: accept
 
-  # fallback 用本地服务器 sequence
-  # 返回非国内 ip 则 drop_resp
-  - tag: query_is_local_ip
+  # fallback 用分流 sequence
+  # 返回国外IP则用clash解析得出fakeip
+  - tag: fallback_sequence
     type: sequence
     args:
-      - exec: $local_sequence
-      - matches: "!resp_ip $CN-ip-cidr"
-        exec: drop_resp
-
-  # fallback 用远程服务器 sequence
-  - tag: query_is_remote
+      - exec: $private_sequence
+      - matches: "!resp_ip $geoip_cn"
+        exec: goto clash_sequence
+      - exec: accept
+      
+  # 国外sequence
+  - tag: fallback2_sequence
     type: sequence
     args:
       - exec: $remote_sequence
+      - matches: "resp_ip $geoip_cn"
+        exec: goto local_sequence
+      - exec: goto clash_sequence      
 
-  # fallback 用远程服务器 sequence
+  # fallback 用分流DNS，超时后用国外DNS解析    
   - tag: fallback
     type: fallback
     args:
-      primary: query_is_local_ip
-      secondary: query_is_remote
-      threshold: 500
+      primary: fallback_sequence
+      secondary: fallback2_sequence
+      threshold: 2000
       always_standby: true
-
-  # 查询 DDNS 域名
-  - tag: query_is_ddns_domain
-    type: sequence
-    args:
-      - matches: qname $ddns_list
-        exec: $local_sequence
-
-  # 查询国内域名
-  - tag: query_is_local_domain
-    type: sequence
-    args:
-      - matches: qname $direct-list
-        exec: $local_sequence
-
-  # 查询国外域名
-  - tag: query_is_no_local_domain
-    type: sequence
-    args:
-      - matches: qname $gfw
-        exec: $remote_sequence
-
-  # 查询白名单
-  - tag: query_is_white_list_domain
-    type: sequence
-    args:
-      - matches: qname $white_list
-        exec: $local_sequence
-
-  # 查询灰名单
-  - tag: query_is_grey_list_domain
-    type: sequence
-    args:
-      - matches: qname $grey_list
-        exec: $remote_sequence
-
-  # 拒绝名单
-  - tag: query_is_reject_domain
-    type: sequence
-    args:
-      - matches: qname $block_list
-        exec: reject 3
-      - matches:
-        - qtype 12
-        - qname $local_ptr
-        exec: reject 3
-      - matches: qtype 65
-        exec: reject 3
 
   # 主要的运行逻辑插件
   # sequence 插件中调用的插件 tag 必须在 sequence 前定义，
@@ -225,40 +156,48 @@ plugins:
   - tag: main_sequence
     type: sequence
     args:
-      - exec: $hosts
-      - exec: jump has_resp_sequence
-      # 非 “拒绝名单” 或 “DDNS域名” 则启用缓存
+      # drop https query type
       - matches:
-        - "!qname $ddns_list"               # 非白名单
-        - "!qname $block_list"              # 非黑名单
-        - "!qname $local_ptr"               # 非PTR 黑名单
-        exec: $lazy_cache                   # 缓存
-      - exec: $redirect                     # 重定向请求的域名
-      - exec: jump has_resp_sequence        # 有响应则修改 TTL 并终止返回
-      - exec: $query_is_ddns_domain         # 查询 DDNS 域名
-      - exec: jump has_resp_sequence
-      - exec: $query_is_white_list_domain   # 查询白名单
-      - exec: jump has_resp_sequence
-      - exec: $query_is_reject_domain       # 拒绝名单
-      - exec: jump has_resp_sequence
-      - exec: $query_is_grey_list_domain    # 查询灰名单
-      - exec: jump has_resp_sequence
-      - exec: $query_is_no_local_domain     # 查询国外域名
-      - exec: jump has_resp_sequence
-      - exec: $query_is_local_domain        # 查询国内域名
-      - exec: jump has_resp_sequence
-      - exec: $fallback                     # fallback 用远程服务器
+        - qtype 65
+        exec: reject 3
 
-  # 启动 udp 服务器。
+      # handle local ptr
+      - matches:
+        - qtype 12
+        exec: $local_sequence
+      - exec: jump has_resp_sequence
+
+      # 白名单 加入的域名始终允许使用 “本地 DNS” 进行解析
+      - matches:
+        - qname $white_list
+        exec: $local_sequence
+      - exec: jump has_resp_sequence
+
+      # 灰名单 加入的域名始终使用 “远程 DNS” 进行解析
+      - matches:
+        - qname $grey_list
+        exec: $remote_sequence
+      - exec: jump has_resp_sequence
+
+      #FakeIP不缓存
+      - matches:
+        - qname $geosite_no_cn
+        exec: $clash_sequence
+      - exec: jump has_resp_sequence
+      
+      # 缓存
+      - exec: $cache
+      - exec: jump has_resp_sequence
+
+      - matches:
+        - qname $geosite_cn
+        exec: $local_sequence
+      - exec: jump has_resp_sequence
+
+      - exec: $fallback
+
   - tag: udp_server
     type: udp_server
     args:
       entry: main_sequence
-      listen: ":5351"
-
-  # 启动 tcp 服务器。
-  - tag: tcp_server
-    type: tcp_server
-    args:
-      entry: main_sequence
-      listen: ":5351"
+      listen: ":5351" #mosdns监听端口
