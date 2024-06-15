@@ -5306,13 +5306,11 @@ adserver01.de
 adserver1.adtech.com.tr
 adserver1.hookyouup.com
 adserver1.mediainsight.de
-adserver1.mindshare.de
 adserver1.sonymusiceurope.com
 adserver1.wmads.com
 adserver2.atman.pl
 adserver2.creative.com
 adserver2.mediainsight.de
-adserver2.mindshare.de
 adserver9.contextad.com
 adserverplus.com
 adserverpub.com
@@ -10497,7 +10495,6 @@ banner.kanald.com.tr
 banner.lbs.km.ru
 banner.linux.se
 banner.media-system.de
-banner.mindshare.de
 banner.mob.hr
 banner.monacogoldcasino.com
 banner.newyorkcasino.com
@@ -11251,6 +11248,7 @@ beholdcontents.com
 beholdsalmonsituated.com
 behoppipan.com
 behtarinseo.ir
+behvgsik.icu
 beigecombinedsniffing.com
 beigefindaccurate.com
 beijing.buzhi5.com
@@ -11926,6 +11924,7 @@ bing007.shop
 bing009.shop
 binga01.shop
 binga03.shop
+binga07.shop
 bingoocy.com
 binh-chonthang7.weebly.com
 binhchon-gionghatvietnhi-2022.weebly.com
@@ -14796,6 +14795,7 @@ cdn.optmn.cloud
 cdn.pljs.ru
 cdn.pranmcpkx.com
 cdn.preciso.net
+cdn.pubnub.com
 cdn.pushalert.co
 cdn.pushmaster-cdn.xyz
 cdn.qc24h.com
@@ -15126,6 +15126,7 @@ cfusionsys.com
 cfx3d.xyz
 cgbaybqywso.com
 cgbswl.icu
+cgczuu.xyz
 cgeckmydirect.biz
 cghfqbwdkuemcn.com
 cgicol.amap.com
@@ -18267,6 +18268,7 @@ crockejection.com
 crockerycrowdedincidentally.com
 crockuncomfortable.com
 crocopop.com
+crodfnyk.xyz
 croea.com
 croissieres.fr
 crookrally.com
@@ -18322,6 +18324,7 @@ cruisetitleclosed.com
 crumblerefunddiana.com
 crumbrationally.com
 crumbtypewriterhome.com
+crummerexisted.com
 crummygoddess.com
 crumpet.xxxpornhd.pro
 crumplylenient.com
@@ -20152,6 +20155,7 @@ dashingleather.com
 dasistnews.net
 daslethv.com
 dasljfoq.top
+daslkdlqk.top
 dasperdolus.com
 dasv10rewq.xyz
 dat1.jzjxmj.com
@@ -25653,6 +25657,7 @@ f3663618ff.com
 f3f202565b.com
 f3udfa7nfguhni.com
 f4.p0y.com
+f417a726.xyz
 f43f5a2390.com
 f459fdc403a6.78a5254f.ap-northeast-1.token.awswaf.com
 f4823894ba.com
@@ -29186,6 +29191,7 @@ gilrauci.net
 gim.co.il
 gimavpojtqa.com
 gimg.baidu.com
+gimmalscutches.com
 gimme-promo.com
 gimnsr.com
 gimohhfzvmpdt.com
@@ -29898,6 +29904,7 @@ googlevads-cn.com
 goohimom.net
 goolaptaugab.com
 goole20.shop
+goole24.shop
 goolgueule.fr
 goomaphy.com
 goon.ru
@@ -32880,6 +32887,7 @@ hwivedn.icu
 hwmlmcbwpbkwas.com
 hwmonitor-ru.ru
 hwnod.xyz
+hwnojj.xyz
 hwof.info
 hwosl.cloud
 hwpnocpctu.com
@@ -37688,6 +37696,7 @@ kslbahd.top
 ksnbiepnvjdi.com
 ksnbtmz.com
 ksnooastqr.xyz
+kspl48j.xyz
 ksrgsc.xyz
 ksrtmgoym.com
 kssolo.com
@@ -39351,6 +39360,7 @@ littleneptunenews.com
 littleworthjuvenile.com
 littlmarsnews22.com
 litvp.com
+liuhui111.top
 liujiahao6.cn
 liupoaa.com
 liuxiangxiang.top
@@ -41668,6 +41678,7 @@ mci1.co.kr
 mcinyaqeaeyrhf.com
 mcizas.com
 mckensecuryr.info
+mckgmkh.icu
 mcleaks.fr
 mclick.mobi
 mcloudglobal.com
@@ -63887,6 +63898,7 @@ tdfkidmyynbqu.com
 tdgtkqtluuhjcfw.com
 tdhlmto.cn
 tdhnxf.xyz
+tdhserg.cn
 tdid.m.qq.com
 tdjdpyrt.xyz
 tdk.petsplace.nl
@@ -68186,6 +68198,7 @@ ufeevhhnjilfeo.com
 ufgkypfhervr.com
 ufiledsit.com
 ufinkln.com
+ufjslit.top
 uflybplr.xyz
 ufnsyfry.com
 ufoomals.net
@@ -75911,7 +75924,6 @@ yretx.cn
 yrhdmalrfr.com
 yrinpvfw.com
 yrlkeazcacxwaj.com
-yrquuaxo.ajrimmobilier.fr
 yrsfs.com
 yrszy.com.cn
 yrumdfslwabv.com
@@ -76536,6 +76548,7 @@ zitchuhoove.com
 zitscassias.top
 zivtux.com
 ziwane.uno
+ziwelatum.com
 ziyu.net
 ziyzcu.buzz
 ziziasonable.top
@@ -76830,6 +76843,7 @@ zusbzr.com
 zusepe.xyz
 zussrbh.com
 zutcqppwm.com
+zutevd.xyz
 zuugfj.cn
 zuvbzl.xyz
 zuyejecgb.com
