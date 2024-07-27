@@ -31600,6 +31600,8 @@ gvfgd.com
 gvi-tech.com
 gvlocalization.com
 gvoiceplat.com
+gvt1-cn.com
+gvt2-cn.com
 gvzen.com
 gw-ec.com
 gw.craft.moe
@@ -46879,6 +46881,7 @@ lanzun.net
 lao.si
 laobaicai.net
 laobaigan-hs.com
+laoban100.com
 laobandq.com
 laobanfa.com
 laobangban.com
@@ -63855,8 +63858,10 @@ shengxuxu.com
 shengyan985.com
 shengyasd.com
 shengyeji.com
+shengyi.ai
 shengyi.biz
 shengyidi.com
+shengyizhuanjia.com
 shengyuancc.com
 shengzehr.com
 shengzhaoli.com
@@ -83073,6 +83078,7 @@ yuanbaobaoxian.com
 yuanbaohui.com
 yuanbaokc.com
 yuanbaotaoche.com
+yuanbei.biz
 yuanbin.me
 yuancangipr.com
 yuancdn.com
@@ -88027,8 +88033,6 @@ full:gtm.oasisfeng.com
 full:guzzoni-apple-com.v.aaplimg.com
 full:guzzoni.apple.com
 full:guzzoni.smoot.apple.com
-full:gvt1-cn.com
-full:gvt2-cn.com
 full:hellofontpreview.oss-cn-beijing.aliyuncs.com
 full:hellowebfonts.oss-cn-beijing.aliyuncs.com
 full:hospital.pku.edu.cn
@@ -88305,6 +88309,7 @@ full:xn--9kr7l.com
 full:xn--flw351e.com
 full:xp.apple.com
 full:xz.pphimalayanrt.com
+regexp:.+\.amzndns-cn\.(biz|cn|com|net)$
 regexp:.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
 regexp:.+\.awsdns-cn-[0-9][a-e0-9]\.cn$
 regexp:.+\.azchcdn[a-s]\.com$
