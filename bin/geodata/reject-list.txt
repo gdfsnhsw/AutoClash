@@ -5631,6 +5631,7 @@ adtracking.vinden.nl
 adtraction.com
 adtrade.net
 adtrader.com
+adtrafficquality.google
 adtrak.net
 adtraxx.de
 adtrgt.com
@@ -8432,7 +8433,6 @@ app-analytics-v2.snapchat.com
 app-analytics.snapchat.com
 app-measurement.com
 app.adjust.io
-app.adjust.net.in
 app.adjust.world
 app.airtrack.jp
 app.amazon-line.com
@@ -9888,7 +9888,6 @@ ayads.co
 ayaghlq.com
 ayahspollent.top
 ayarkkyjrmqzw.top
-aybereklam.com
 ayboll.com
 aybvfvlyrtbskvy.com
 aycalfcwwgf.com
@@ -10227,6 +10226,7 @@ baijs06.shop
 baijs06.xyz
 baijs07.shop
 baijs07.xyz
+baijs08.shop
 baijs08.xyz
 baikalize.com
 bailedgatheringmirth.com
@@ -17262,7 +17262,6 @@ counter.web.money
 counter.webmart.de
 counter.webmedia.pl
 counter.websiteout.net
-counter.wikiwiki.jp
 counter.xxxcool.com
 counter.zerohedge.com
 counter1.bravenet.com
@@ -19377,6 +19376,7 @@ daailynews.com
 daartads.com
 daast.digitalbox.ru
 dab.rus-km.ru
+dabajd.xyz
 dabblercissies.com
 dabiaozhi.com
 dable.io
@@ -21671,6 +21671,7 @@ doujs06.shop
 doujs06.xyz
 doujs07.shop
 doujs07.xyz
+doujs08.shop
 doujs08.xyz
 doujs09.xyz
 doukoula.com
@@ -24405,7 +24406,6 @@ exactconfigurationhasten.com
 exactdrive.com
 exactsag.com
 exacttarget.api.mashery.com
-exacttarget.com
 exad.smi2.ru
 exaggeratekindnessvocal.com
 exaleprn.com
@@ -30447,6 +30447,7 @@ hewmjifrn4gway.com
 hewokhn.com
 hewomenentail.com
 hewonderfulst.info
+hewrutu.top
 hexagon-analytics.com
 hexapinow.xyz
 hexcan.com
@@ -35151,6 +35152,7 @@ jyhxhsdgxbvcnj.com
 jyisloa.top
 jyjhjopmq.com
 jyjmpatmgk.com
+jyjrbz.xyz
 jylgvkxgfy.com
 jynginedoddle.top
 jynp9m209p.com
@@ -35812,6 +35814,7 @@ kjsvvnzcto.com
 kjubky.xyz
 kjuftmdofmsrhq.com
 kjvaqbyebqarl.top
+kjxhd.cn
 kjyouhp.com
 kkacrgx.icu
 kkbbjtfp.xyz
@@ -36427,7 +36430,6 @@ l-fb.co
 l-histoire.fr
 l-iw.de
 l-sspcash.adxcore.com
-l.bfmtv.com
 l.da-te.jp
 l.fairblocker.com
 l.ffsagami.com
@@ -41097,6 +41099,7 @@ mixpanel-proxy.ted.com
 mixpanel.com
 mixpo.com
 mixtraff.com
+miycoc.xyz
 miyqoyyazdal.com
 mizensdisney.com
 mizonevn.shop
@@ -43925,6 +43928,7 @@ ninetypastime.com
 ningdblukzqp.com
 ningme.ru
 ninja.akamaized.net
+ninja.data.olxcdn.com
 ninja.onap.io
 ninkorant.online
 ninnycoastal.com
