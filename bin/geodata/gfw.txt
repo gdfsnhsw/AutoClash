@@ -2436,7 +2436,6 @@ matters.news
 matters.town
 matthewdgreen.wordpress.com
 mattwilcox.net
-maven.neoforged.net
 mcadforums.com
 mcaf.ee
 mceindex.com
@@ -2645,6 +2644,7 @@ ned.org
 nekoslovakia.net
 neo-miracle.com
 neodb.social
+neoforged.net
 neowin.net
 nephobox.com
 netalert.me
